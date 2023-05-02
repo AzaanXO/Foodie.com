@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover and learn cooking recipes on Foodie.com">
+    <title>Foodie.com</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h1>Recipe for : <span id="recipeTitle"></span></h1>
+    <button onclick="copyToClipboard(location.host + '/?q=' + document.getElementById('recipeTitle').innerHTML)">Click me to copy the link to share this recipe with your friends!</button>
+    <div class="grid">
+        <img src="./media/dashboard1.png" alt="">
+        <div>
+            <ul id="ingredients">
+                <li>Egg</li>
+                <li>Farine</li>
+                <li>Milk</li>
+            </ul><br>
+            <p id="nutritional">Calories: 450g; Fat: 130g; Sugar: 12g; Protein: 24g;</p>
+        </div>
+    </div>
+        <ul style="list-style:none;" id="instructions">instructions</ul>
+        <div id="reviewList" style="margin:5%">
+            <h3>Name</h3>
+            <p>Review</p>
+        </div>
+  </div>
+
+</div>
+        <nav>
+            <p></p>
+            <h1><a href="/">Foodie.com</a></h1>
+            <div><a href="/">&#x1F50E;&#xFE0E;</a></div>
+        </nav>
+    <header>
+        <input type="text" name="search" id="search" placeholder="&#x1F50E;&#xFE0E; Search among 10 recipes . . .">
+    </header>
+    <main>
+        <span id="mainContent">
+            <h1>Discover Our Recipes on Foodie.com</h1>
+            <section class="grid">
+                <img src="./media/dashboard2.png" alt="picture of a cooked dish" width="450" loading="eager">
+                <article>
+                    <h2>Discover recipes on Foodie.com</h2>
+                    <p> If you are a food enthusiast, look no further than Foodie.com to discover mouth-watering recipes and practical cooking tips. Our site is brimming with culinary delights to satisfy all tastes, from classic dishes to innovative creations. </p>
+                </article>
+            </section>
+            <section class="grid">
+                <article>
+                    <h2>Why Foodie.com ?</h2>
+                    <p>Whether you are searching for recipes to impress your guests or simply to experiment with new flavors, our diverse collection has got you covered. Browse through our categories to find recipes for all meals, from energizing breakfasts to indulgent desserts. So, don't hesitate any longer and explore Foodie.com now to find your next favorite recipe.</p>
+                </article>
+                <img src="./media/dashboard3.png" alt="picture of a cooked dish" width="450" loading="eager">
+            </section>
+        </span>
+    <hr style="width: 80%;margin: auto;">
+    <h1 id="norecipe" style="display: none;">No matching recipe have been found.</h1>
+    <section id="recipeList" class="grid-3">
+    </section>
+    <hr style="width: 80%;margin: auto;"><br>
+    </main>
+    <footer>
+        <h1>Foodie.com</h1>
+    </footer>
+</body>
+<script>
+    function copyToClipboard(text) {
+  const tempTextArea = document.createElement("textarea");
+  tempTextArea.value = text;
+  
+  document.body.appendChild(tempTextArea);
+  
+  tempTextArea.select();
+  
+  document.execCommand("copy");
+  
+  document.body.removeChild(tempTextArea);
+}
+</script>
+<script src="recipes.js"></script>
+<script>
+    // Get the modal
+var modal = document.getElementById("myModal");
+const buttons = document.getElementsByClassName("detailsButton");
+for (let i = 0; i < buttons.length; i++) {
+    buttons[i].addEventListener("click", (ev) => {
+        modal.style.display = "block";
+        document.getElementById("recipeTitle").innerHTML = recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["title"];
+        document.getElementsByClassName("modal-content")[0].getElementsByTagName("img")[0].src = `./media/${recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["img"]}`;
+        document.getElementById("ingredients").innerHTML = recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["ingredients"];
+        document.getElementById("nutritional").innerHTML = recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["nutri"];
+        document.getElementById("instructions").innerHTML = recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["preparation"];
+        document.getElementById("reviewList").getElementsByTagName("h3")[0].innerHTML = recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["reviews"][0][0];
+        document.getElementById("reviewList").getElementsByTagName("p")[0].innerHTML = recipes[ev.target.parentElement.getAttribute('data-recipe-number')]["reviews"][0][1];
+    });
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+</script>
+<script>
+    const searchInput = document.getElementById("search");
+
+    searchInput.addEventListener("input", updateSearch);
+
+    function updateSearch(){
+        if(searchInput.value.length > 0){
+            document.getElementById("mainContent").style.display = "none";
+
+            if(document.querySelectorAll(`.card[data-recipe-name^="${searchInput.value.toLowerCase()}"]`).length === 0){
+                document.getElementById("norecipe").style.display = "block";
+            }
+            else{                
+                document.getElementById("norecipe").style.display = "none";
+                for(i = 0; i < document.querySelectorAll(`.card[data-recipe-name^="${searchInput.value.toLowerCase()}"]`).length; i++){
+                    document.querySelectorAll(`.card[data-recipe-name^="${searchInput.value.toLowerCase()}"]`)[i].style.display = "block";
+                }
+            }
+            for(i = 0; i < document.querySelectorAll(`.card:not([data-recipe-name^="${searchInput.value.toLowerCase()}"])`).length; i++){
+                document.querySelectorAll(`.card:not([data-recipe-name^="${searchInput.value.toLowerCase()}"])`)[i].style.display = "none";
+            }
+        }
+        else{
+            document.getElementById("mainContent").style.display = "block";
+            document.getElementById("norecipe").style.display = "none";
+            for(i = 0; i < document.getElementsByClassName("card").length; i++){
+                document.getElementsByClassName("card")[i].style.display = "block";
+            }
+        };
+    }
+</script>
+<script>
+    if(window.location.search){
+        let searchQuery = window.location.search.replace("?q=", "");
+        searchInput.value = searchQuery.replaceAll("%20", " ");
+        updateSearch();
+    }
+</script>
+</html>
