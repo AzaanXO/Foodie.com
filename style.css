@@ -1,0 +1,309 @@
+@import url('https://fonts.googleapis.com/css2?family=Ysabeau:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+/* || RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+}
+
+input,
+textarea {
+    font: inherit;
+}
+
+/* || VARIABLES */
+
+:root {
+    --FAMILY-FONT: "Ysabeau", sans-serif;
+    --FAMILY-FONT-SEC: "Dancing Script", sans-serif;
+}
+
+/* || GENERAL */
+
+html {
+    font-family: var(--FAMILY-FONT);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    background-image: url("./media/dashboard1.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    backdrop-filter: blur(5px);
+}
+
+nav h1 {
+    font-family: var(--FAMILY-FONT-SEC);
+    font-size: 40px;
+}
+
+nav {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: RGB(230, 230, 230, .95);
+    box-shadow: 1px 1px 4px RGB(0, 0, 0, 0.4);
+    padding: 14px 40px;
+    width: 100%;
+    z-index: 3;
+}
+
+nav div a{
+    margin-inline: 16px;
+}
+
+input {
+    background-color: RGBa(210, 210, 210, 0.85);
+    font-size: 28px;
+    padding: 16px;
+    width: 40%;
+    border: none;
+    border-radius: 16px;
+}
+
+input:focus,
+input:active {
+    outline: none;
+}
+
+section {
+    padding: 126px 10%;
+}
+
+section:nth-child(even) {
+    background-color: RGBa(0, 0, 0, .05);
+}
+
+#recipeList {
+    padding: 10px 10%;
+}
+
+main h1 {
+    margin: 126px auto;
+    text-align: center;
+    font-size: 56px;
+    font-family: var(--FAMILY-FONT-SEC);
+}
+
+main h2 {
+    text-align: center;
+    font-size: 30px;
+    margin: 26px auto;
+}
+
+main p {
+    text-align: center;
+    font-size: 22px;
+    line-height: 40px;
+}
+
+img {
+    border-radius: 32px;
+    box-shadow: 1px 1px 4px black;
+    height: 250px;
+    object-fit: cover;
+    max-width: 95%;
+}
+
+.card {
+    background-color: RGBa(240, 240, 240, .8);
+    padding: 16px;
+    border: 1px solid black;
+    border-radius: 16px;
+    width: 100%;
+    transition: 0.4s;
+}
+
+.card:hover {
+    transform: scale(1.02);
+}
+
+.card img {
+    width: 100%;
+}
+
+.card h3 {
+    text-align: center;
+    margin: 8px auto;
+    font-size: 24px;
+}
+
+.card p {
+    font-size: 18px;
+    margin: 10px auto;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    /* Limite à deux lignes */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Affiche ... à la fin */
+}
+
+.card button, .modal-content button {
+    display: block;
+    font: inherit;
+    color: dodgerblue;
+    background-color: transparent;
+    border: none;
+    margin: auto;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content button{
+    margin: auto auto 20px;
+}
+
+footer {
+    background-color: RGB(230, 230, 230, .95);
+    box-shadow: 1px 1px 4px RGB(0, 0, 0, 0.4);
+    padding: 14px 40px;
+    text-align: center;
+    font-family: var(--FAMILY-FONT-SEC);
+}
+
+/* || MODAL */
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+    border-radius: 16px;
+    box-shadow: 1px 1px 4px gray;
+}
+
+.modal-content h1 {
+    text-align: center;
+    margin: 26px auto;
+}
+
+.modal-content img {
+    width: 80%;
+}
+
+ul li {
+    text-align: center;
+    line-height: 30px;
+}
+
+#instructions {
+    text-align: center;
+    margin: 38px auto 20px auto;
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* || MODIFIER */
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    gap: 30px;
+}
+
+.grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    place-items: center;
+    gap: 26px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* || MEDIA QUERIES */
+
+@media screen and (max-width: 1050px) {
+    
+.grid-3 {
+    grid-template-columns: 1fr 1fr;
+}
+.grid{    
+    grid-template-columns: 1fr;
+}
+
+.modal-content{
+    margin: 10% auto;
+    width: 98%;
+}
+}
+
+@media screen and (max-width: 750px) {
+    
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+    input{
+        width: 80%;
+    }
+    .modal-content{
+        margin: 15% auto;
+    }
+    }
+
+    @media screen and (max-width: 500px) {
+        nav{position: static;}
+        .grid{padding: 0;width: 100%;}
+        .modal-content{
+            margin: 0% auto;
+        }
+        input{
+            width: 95%;
+        }
+    }
